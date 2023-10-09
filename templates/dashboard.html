@@ -1,0 +1,41 @@
+{% extends 'template.html' %}
+{% block head %}
+    {{user}}'s Dashboard
+{% endblock %}
+
+{% block body %}
+<br>
+<body class="text-center">
+    <div class="container">
+        <h3> Welcome {{user}}!</h3>
+    </div><br>
+    <button class="btn btn-lg btn-primary"><a style="color:white" href="{{url_for('add_deck')}}">Add Decks</a></button>
+    </div><br><br>
+    <div>
+              <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Review</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            {% include 'includes/deck_modal.html' %}
+                <tr>
+                    <td>{{ item.deck_id }}</td>
+                    <td>{{ item.name }}</td> 
+                    <td>{{ item.deck_rate }}</td>
+                    <td>
+                        <button class="btn btn-outline btn-info"><a style="color:white" href="/cards/{{item.deck_id}}">Select</a></button>
+                        <button class="btn btn-outline btn-success" data-toggle="modal" data-target="#Modal-Edit-{{ item.deck_id }}">Edit Deck</button>
+                        <button class="btn btn-outline btn-success"><a style="color:white" href="/delete/{{item.deck_id}}">Delete Deck</a></button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</body>
+{% endblock %}
